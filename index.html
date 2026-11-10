@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop hero: what do we need to learn?</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%230b6b4f'/><text x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='Arial'>?</text></svg>">
+<style>
+  :root { --ink:#141414; --muted:#5b5b5b; --line:#cdd8d2; --accent:#0b6b4f; --soft:#eef6f2; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; height:100%; font-family:-apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color:var(--ink); background:#fff; }
+  .wrap { display:grid; grid-template-rows:auto auto 1fr auto; gap:12px; height:100vh; padding:18px 22px; }
+  header { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; }
+  h1 { font-size:26px; margin:0 0 4px; letter-spacing:-.2px; }
+  .goal { font-size:16px; color:var(--muted); }
+  .goal b { color:var(--ink); }
+  .facts { font-size:13px; color:var(--muted); margin-top:4px; }
+  .facts a { color:var(--accent); font-weight:600; }
+  .timer { text-align:right; min-width:200px; }
+  .clock { font-size:30px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1; }
+  .stage { font-size:13px; color:var(--accent); font-weight:600; margin:4px 0; min-height:16px; }
+  .btns button { font-size:12px; padding:5px 9px; margin-left:4px; border:1px solid var(--line); background:#fff; border-radius:6px; cursor:pointer; color:var(--ink); }
+  .btns button:hover { border-color:var(--accent); }
+  .assume { background:var(--soft); border:1px solid var(--line); border-radius:10px; padding:9px 14px; font-size:16px; display:flex; gap:8px; }
+  .assume b { color:var(--accent); white-space:nowrap; }
+  .assume .edit { flex:1; padding:0; overflow:visible; }
+  .grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; min-height:0; }
+  .col { border:1.5px solid var(--line); border-radius:12px; display:flex; flex-direction:column; min-height:0; transition:border-color .2s, box-shadow .2s; }
+  .col.active { border-color:var(--accent); box-shadow:0 0 0 3px rgba(11,107,79,.14); }
+  .col h2 { margin:0; padding:10px 14px 2px; font-size:18px; display:flex; justify-content:space-between; align-items:baseline; gap:6px; }
+  .col h2 .n { color:var(--accent); margin-right:6px; }
+  .col h2 .time { font-size:11.5px; color:var(--muted); font-weight:500; white-space:nowrap; }
+  .col .q { padding:0 14px 8px; font-size:13px; color:var(--muted); border-bottom:1px solid var(--line); }
+  .edit { flex:1; overflow:auto; padding:8px 14px; font-size:15.5px; line-height:1.45; outline:none; }
+  .edit ul { margin:0; padding-left:18px; }
+  .edit li { margin-bottom:3px; }
+  .edit .lbl { font-weight:700; color:var(--accent); }
+  footer { display:grid; grid-template-columns:1.4fr 1fr; gap:12px; }
+  .box { border:1.5px dashed var(--line); border-radius:12px; padding:7px 14px; min-height:78px; display:flex; flex-direction:column; }
+  .box h3 { margin:0 0 2px; font-size:12.5px; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); }
+  .box .edit { padding:2px 0; font-size:15px; }
+  .hint { font-size:11px; color:#9a9a9a; text-align:right; margin-top:-6px; }
+  @media (max-width: 900px) { .grid { grid-template-columns:1fr 1fr; } .wrap { height:auto; } .col { min-height:220px; } footer { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1>Online shop hero: what do we need to learn?</h1>
+      <div class="goal"><b>In 30 minutes:</b> a shared view of the problem &middot; what we know vs what we're assuming &middot; next steps and who helps</div>
+      <div class="facts">1.2M visits &middot; 80% mobile &middot; homepage 40% of views &middot; conversion 2.7% mobile vs 4.1% desktop &middot; revenue per visit £1.10 vs £1.90 &middot; <a href="https://www.nhmshop.co.uk/" target="_blank" rel="noopener">Open the shop</a></div>
+    </div>
+    <div class="timer">
+      <div class="clock" id="clock">30:00</div>
+      <div class="stage" id="stage"></div>
+      <div class="btns"><button onclick="start()">Start</button><button onclick="pause()">Pause</button><button onclick="resetTimer()">Reset</button><button onclick="downloadBoard()" title="Save an offline HTML copy with current notes">Download board</button><button onclick="exportNotes()" title="Save a plain-text copy of your notes">Export notes</button><button onclick="clearAll()" title="Wipe all typed notes">Clear notes</button></div>
+    </div>
+  </header>
+
+  <div class="assume"><b>Our starting assumption:</b><div class="edit" contenteditable="true" data-k="assume">If we update the hero banner, click rate and conversion will rise, and revenue will follow.</div></div>
+
+  <div class="grid">
+    <div class="col" id="c1">
+      <h2><span><span class="n">1</span>Outcome</span><span class="time">0 to 5 min</span></h2>
+      <div class="q">What job should the hero do? Which visitor and business outcome matters? Why focus here?</div>
+      <div class="edit" contenteditable="true" data-k="c1"><ul><li><br></li></ul></div>
+    </div>
+    <div class="col" id="c2">
+      <h2><span><span class="n">2</span>Users and evidence</span><span class="time">5 to 12 min</span></h2>
+      <div class="q">Who shops on mobile? What happens after the click? What do we know, and what don't we know?</div>
+      <div class="edit" contenteditable="true" data-k="c2"><ul><li><br></li></ul></div>
+    </div>
+    <div class="col" id="c3">
+      <h2><span><span class="n">3</span>Content, tech, organisation</span><span class="time">12 to 20 min</span></h2>
+      <div class="q">Who makes it? How is it built? What must it meet, including accessibility?</div>
+      <div class="edit" contenteditable="true" data-k="c3"><ul><li><br></li></ul></div>
+    </div>
+    <div class="col" id="c4">
+      <h2><span><span class="n">4</span>Decide</span><span class="time">20 to 30 min</span></h2>
+      <div class="q">Campaign fix, shop fix, existing pattern or new shared pattern? Next check and owners</div>
+      <div class="edit" contenteditable="true" data-k="c4"><ul><li><br></li></ul></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="box"><h3>Our problem, in one sentence</h3><div class="edit" contenteditable="true" data-k="problem"></div></div>
+    <div class="box"><h3>Good ideas to come back to</h3><div class="edit" contenteditable="true" data-k="later"><ul><li><br></li></ul></div></div>
+  </footer>
+  <div class="hint">Notes save in this browser only. Download an offline copy or export notes before leaving.</div>
+
+</div>
+<script>
+  // ---- timer ----
+  var total = 30*60, left = total, t = null;
+  var stages = [[0,"Now: 1 Outcome","c1"],[5,"Now: 2 Users and evidence","c2"],[12,"Now: 3 Content, tech, organisation","c3"],[20,"Now: 4 Decide","c4"],[26,"Now: play back and close","c4"]];
+  function draw(){
+    var m = Math.floor(left/60), s = left%60;
+    document.getElementById('clock').textContent = (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+    var used = (total-left)/60, cur = stages[0];
+    stages.forEach(function(st){ if(used>=st[0]) cur = st; });
+    var running = left < total;
+    document.getElementById('stage').textContent = !running ? '' : (left<=0 ? 'Time' : cur[1]);
+    ['c1','c2','c3','c4'].forEach(function(id){ document.getElementById(id).classList.toggle('active', running && left>0 && id===cur[2]); });
+  }
+  function start(){ if(t) return; t = setInterval(function(){ if(left>0){ left--; draw(); } else { clearInterval(t); t=null; draw(); } },1000); }
+  function pause(){ clearInterval(t); t=null; }
+  function resetTimer(){ pause(); left = total; draw(); }
+  draw();
+
+  // ---- notes: autosave in this browser, safe if storage is blocked ----
+  var eds = document.querySelectorAll('.edit[data-k]');
+  var defaults = {};
+  eds.forEach(function(e){ defaults[e.dataset.k] = e.innerHTML; });
+  function load(){ try { eds.forEach(function(e){ var v = localStorage.getItem('nhmboard_'+e.dataset.k); if(v!==null) e.innerHTML = v; }); } catch(err){} }
+  function save(e){ try { localStorage.setItem('nhmboard_'+e.dataset.k, e.innerHTML); } catch(err){} }
+  eds.forEach(function(e){
+    e.addEventListener('input', function(){ save(e); });
+    // keep list boxes as bullet lists if someone deletes everything
+    e.addEventListener('keyup', function(){ if(defaults[e.dataset.k].indexOf('<ul>')===0 && e.innerText.trim()==='' && !e.querySelector('li')){ e.innerHTML='<ul><li><br></li></ul>'; } });
+  });
+  function clearAll(){
+    if(!confirm('Clear all notes on this board?')) return;
+    eds.forEach(function(e){ e.innerHTML = defaults[e.dataset.k]; try { localStorage.removeItem('nhmboard_'+e.dataset.k); } catch(err){} });
+  }
+  function downloadFile(name, content, type){
+    var url = URL.createObjectURL(new Blob([content], {type:type}));
+    var a = document.createElement('a'); a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }
+  function downloadBoard(){
+    downloadFile('NHM-Hero-Discussion-Board-offline.html', '<!DOCTYPE html>\n'+document.documentElement.outerHTML, 'text/html;charset=utf-8');
+  }
+  function exportNotes(){
+    var names = {assume:'Starting assumption',c1:'1. Outcome',c2:'2. Users and evidence',c3:'3. Content, tech, organisation',c4:'4. Decide',problem:'Our problem, in one sentence',later:'Good ideas to come back to'};
+    var lines=['NHM shop hero discussion notes', new Date().toLocaleString(), ''];
+    eds.forEach(function(e){ lines.push(names[e.dataset.k] || e.dataset.k); lines.push(e.innerText.trim() || '(blank)'); lines.push(''); });
+    downloadFile('NHM-hero-discussion-notes.txt', lines.join('\n'), 'text/plain;charset=utf-8');
+  }
+  load();
+</script>
+</body>
+</html>
