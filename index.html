@@ -74,12 +74,12 @@
     </div>
     <div class="col" id="c3">
       <h2><span><span class="n">3</span>Content, tech, organisation</span><span class="time">12 to 20 min</span></h2>
-      <div class="q">Who makes it? How is it built? What must it meet, including accessibility?</div>
+      <div class="q">What already exists? What must stay consistent, what can vary, who maintains it, and how does it stay accessible?</div>
       <div class="edit" contenteditable="true" data-k="c3"><ul><li><br></li></ul></div>
     </div>
     <div class="col" id="c4">
-      <h2><span><span class="n">4</span>Decide</span><span class="time">20 to 30 min</span></h2>
-      <div class="q">Campaign fix, shop fix, existing pattern or new shared pattern? Next check and owners</div>
+      <h2><span><span class="n">4</span>Agree and next steps</span><span class="time">20 to 30 min</span></h2>
+      <div class="q">What have we learned? What remains uncertain? What should we check next, with whom?</div>
       <div class="edit" contenteditable="true" data-k="c4"><ul><li><br></li></ul></div>
     </div>
   </div>
@@ -94,7 +94,7 @@
 <script>
   // ---- timer ----
   var total = 30*60, left = total, t = null;
-  var stages = [[0,"Now: 1 Outcome","c1"],[5,"Now: 2 Users and evidence","c2"],[12,"Now: 3 Content, tech, organisation","c3"],[20,"Now: 4 Decide","c4"],[26,"Now: play back and close","c4"]];
+  var stages = [[0,"Now: 1 Outcome","c1"],[5,"Now: 2 Users and evidence","c2"],[12,"Now: 3 Content, tech, organisation","c3"],[20,"Now: 4 Agree and next steps","c4"],[26,"Now: play back and close","c4"]];
   function draw(){
     var m = Math.floor(left/60), s = left%60;
     document.getElementById('clock').textContent = (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
@@ -133,7 +133,7 @@
     downloadFile('NHM-Hero-Discussion-Board-offline.html', '<!DOCTYPE html>\n'+document.documentElement.outerHTML, 'text/html;charset=utf-8');
   }
   function exportNotes(){
-    var names = {assume:'Starting assumption',c1:'1. Outcome',c2:'2. Users and evidence',c3:'3. Content, tech, organisation',c4:'4. Decide',problem:'Our problem, in one sentence',later:'Good ideas to come back to'};
+    var names = {assume:'Starting assumption',c1:'1. Outcome',c2:'2. Users and evidence',c3:'3. Content, tech, organisation',c4:'4. Agree and next steps',problem:'Our problem, in one sentence',later:'Good ideas to come back to'};
     var lines=['NHM shop hero discussion notes', new Date().toLocaleString(), ''];
     eds.forEach(function(e){ lines.push(names[e.dataset.k] || e.dataset.k); lines.push(e.innerText.trim() || '(blank)'); lines.push(''); });
     downloadFile('NHM-hero-discussion-notes.txt', lines.join('\n'), 'text/plain;charset=utf-8');
